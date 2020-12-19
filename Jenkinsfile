@@ -15,14 +15,17 @@ node {
         app = docker.build("jamiequerns/cw2:${env.BUILD_ID}")
     }
 
-    stage('Test image') {
-        /* Ideally, we would run a test framework against our image.
-         * For this example, we're using a Volkswagen-type approach ;-) */
+    stage('Test image') { 
+	environment {
+        scannerHome = tool 'SonarQubeScanner'
 
-        app.inside {
-            sh 'echo "Tests passed"'
+	steps {
+	  withSonarQubeEnv('SonarQubeScanner'){
+	  sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=sonar-js -Dsonar.sources=." 	
+	}
         }
     }
+
 
     stage('Push image') {
         /* Finally, we'll push the image with two tags
