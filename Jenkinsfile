@@ -1,45 +1,36 @@
-pipeline { agent any environment { registry = 
-    "jamiequerns/coursework2" registryCredential = 
-    'dockerhub'
-  }
-    stages {
-	
-	stage('Cloning Git') { steps { git 
-    'https://github.com/JamieQuerns/cw2.git'
-  }
-}
-        stage('Build') { steps { script { dockerImage = 
-         docker.build registry + ":$BUILD_NUMBER"
-        }
-            }
-        }
-		
-		stage('Deploy Image') { steps{ script { 
-      docker.withRegistry( '', registryCredential ) {
-        dockerImage.push()
-      }
+node {
+    def app
+
+    stage('Clone repository') {
+        /* Let's make sure we have the repository cloned to our 
+	workspace */
+
+        checkout scm
     }
-  }
-}
-		
-        stage('Sonarqube') { environment { scannerHome = 
-        tool 'SonarQubeScanner'
+
+    stage('Build image') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
+
+        app = docker.build("jamiequerns/cw2:${env.BUILD_ID}")
     }
-    steps { withSonarQubeEnv('sonarqube') { sh 
-            "${scannerHome}/bin/sonar-scanner 
-            -Dsonar.projectKey=sonar-js 
-            -Dsonar.sources=."
+
+    stage('Test image') {
+        /* Ideally, we would run a test framework against our image.
+         * For this example, we're using a Volkswagen-type approach ;-) */
+
+        app.inside {
+            sh 'echo "Tests passed"'
         }
     }
-}
-	stage('update application'){
-		
-		steps{ sleep (10) sh 'ssh 
-		azureuser@35.172.146.252 kubectl set 
-		image deployments/cw2 
-		cw2=jamiequerns/cw2:$BUILD_NUMBER'
-		
-		}
-}
+
+    stage('Push image') {
+        /* Finally, we'll push the image with two tags
+         * Second, the 'latest' tag.
+         * Pushing multiple tags is cheap, as all the layers are reused. */
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+            app.push("${env.BUILD_NUMBER}") //incremental build number from Jenkins
+            app.push("latest") //latest tag
+        }
     }
 }
