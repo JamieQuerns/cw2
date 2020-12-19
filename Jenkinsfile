@@ -15,17 +15,6 @@ node {
         app = docker.build("jamiequerns/cw2:${env.BUILD_ID}")
     }
 
-    stage('Test image') { 
-	environment {
-        scannerHome = tool 'SonarQubeScanner'
-
-	steps {
-	  withSonarQubeEnv('SonarQubeScanner'){
-	  sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=sonar-js -Dsonar.sources=." 	
-	}
-        }
-    }
-
 
     stage('Push image') {
         /* Finally, we'll push the image with two tags
