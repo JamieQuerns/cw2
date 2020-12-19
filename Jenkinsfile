@@ -28,16 +28,18 @@ node {
 }
 
 
-stage('Sonarqube') {
-    environment {
-        scannerHome = tool 'SonarQubeScanner'
+stage('SonarCloud') {
+  environment {
+    SCANNER_HOME = tool 'SonarQubeScanner'
+    ORGANIZATION = "Jamie Querns"
+    PROJECT_NAME = "coursework-2"
+  }
+  steps {
+    withSonarQubeEnv('SonarCloudOne') {
+        sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.organization=$ORGANIZATION \
+        -Dsonar.java.binaries=build/classes/java/ \
+        -Dsonar.projectKey=$PROJECT_NAME \
+        -Dsonar.sources=.'''
     }
-    steps {
-        withSonarQubeEnv('sonarqube') {
-            sh "${scannerHome}/bin/sonar-scanner"
-        }
-        timeout(time: 10, unit: 'MINUTES') {
-            waitForQualityGate abortPipeline: true
-        }
-    }
+  }
 }
