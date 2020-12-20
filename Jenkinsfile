@@ -25,16 +25,21 @@ pipeline {
     agent any 
     stages {
        
-        stage('Sonarqube') {
+      stage('Sonarqube') {
     environment {
-        scannerHome = tool 'SonarQube'
+        scannerHome = tool 'SonarQubeScanner'
     }
     steps {
-        withSonarQubeEnv('SonarQube') {
+        withSonarQubeEnv('sonarqube') {
             sh "${scannerHome}/bin/sonar-scanner"
         }
+        timeout(time: 20, unit: 'SECONDS') {
+            waitForQualityGate abortPipeline: true
+        }
     }
-  }      
+}                  
+        
+        
         stage('Deploy passed build to Kubernetes') {
             steps {
              sh 'ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-236-211-229.compute-1.amazonaws.com kubectl rollout restart deployment/cw2'
