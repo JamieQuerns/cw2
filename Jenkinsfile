@@ -29,7 +29,7 @@ node {
 }
 
 pipeline {
-
+ agent any
 	stage("Stage 5 Deploying new image to Kubernetes") 
         {
                 steps
