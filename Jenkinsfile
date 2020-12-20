@@ -31,7 +31,7 @@ pipeline {
     }
     steps {
         withSonarQubeEnv('SonarQube') {
-            sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=sonar-js -Dsonar.sources=." 
+            sh "${scannerHome}/bin/sonar-scanner"
         }
     }
   }      
