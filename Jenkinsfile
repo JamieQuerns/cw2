@@ -26,8 +26,16 @@ node {
         }
     }
 
+}
+
+pipeline {
+
+	stage("Stage 5 Deploying new image to Kubernetes") 
+        {
+                steps
+                {
+                    sh 'ssh ubuntu@ec2-3-236-211-229.compute-1.amazonaws.com kubectl rollout restart deployment/cw2'
+                }
+        }
 	
-		stage('update application'){
-		sshCommand  ubuntu@3.236.211.229, command: "kubectl rollout restart deployment/cw2'
-		}
 }
