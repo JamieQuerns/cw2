@@ -34,7 +34,7 @@ pipeline {
             sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=sonar-js -Dsonar.sources=." 
         }
     }
-}
+
         
         stage('Deploy passed build to Kubernetes') {
             steps {
