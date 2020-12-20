@@ -30,10 +30,12 @@ stage("Deploy new image to Kubernetes")
         {
                 steps
                 {
-                    sh 'ssh ubuntu@3.236.211.229 kubectl rollout restart deployment/cw2'
+			sleep (10)
+			
+                    sh 'ssh ubuntu@3.236.211.229 kubectl set image deployments/cw2 cw2=jamiequerns/cw2:$BUILD_NUMBER''
                 }
         }
 
 }
-}
+
 
