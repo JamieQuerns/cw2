@@ -26,6 +26,15 @@ node {
         }
     }
 
+	
+		stage('update application'){
+		
+		steps{
+		sleep (10)
+		sh 'ssh azureuser@3.236.211.229 kubectl set image deployments/cw2 cw2=jamiequerns/cw2:$BUILD_NUMBER'
+		
+		}
+}
 
 }
 
