@@ -26,10 +26,6 @@ node {
         }
     }
 
-stage("Deploy new image to Kubernetes") 
-        {		
-            sh 'ssh ubuntu@3.236.211.229 kubectl set image deployments/cw2 cw2=jamiequerns/cw2:$BUILD_NUMBER''
-        }
 
 }
 
