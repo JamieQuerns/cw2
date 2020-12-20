@@ -30,7 +30,7 @@ stage("Deploy new image to Kubernetes")
         {
                 steps
                 {
-                    sh 'ssh ubuntu@ec2-52-21-70-217.compute-1.amazonaws.com kubectl rollout restart deployment/dev-ops-node-js'
+                    sh 'ssh ec2-3-236-211-229.compute-1.amazonaws.com kubectl rollout restart deployment/cw2'
                 }
         }
 
