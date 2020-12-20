@@ -35,5 +35,5 @@ stage("Deploy new image to Kubernetes")
         }
 
 }
-
+}
 
