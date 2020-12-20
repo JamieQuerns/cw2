@@ -1,15 +1,6 @@
 pipeline {
    agent any
-
-   stages {
-      stage('Get files from Github') {
-         steps {
-            //Get code from the right branch of the repository
-            git branch: 'myBranch', url: 'https://github.com/jamiequerns/cw2/'
-             
-         }
-      }
-          
+ 
      stage('SonarQube') 
      {
         environment {
@@ -24,4 +15,14 @@ pipeline {
         }
     }
    }
+
+   stage("Stage 5 Deploying new image to Kubernetes") 
+        {
+                steps
+                {
+                    sh 'ssh ubuntu@3.236.211.229 kubectl rollout restart deployment/dev-ops-node-js'
+                }
+        }
+   
+   
 }
