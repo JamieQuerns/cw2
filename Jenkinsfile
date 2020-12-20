@@ -4,11 +4,13 @@ pipeline {
        
         stage('Stage 1') {
             steps {
-                echo 'Hello world!' 
+             sh 'ssh ubuntu@ec2-3-236-211-229.compute-1.amazonaws.com kubectl rollout restart deployment/cw2'
             }
-       
+          }
         
-        }
+        
+        
+        
     }
 }
    
