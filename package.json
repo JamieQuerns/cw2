@@ -2,7 +2,7 @@
  "name": "server", 
  "version": "1.0.0", 
  "description": "Test Hello World Server For Coursework 2",
- "main":"main.js", 
+ "main":"server.js", 
  "scripts": {
     "start": "node server.js"
   },
@@ -10,6 +10,6 @@
   "url": "https://github.com/JamieQuerns/cw2.git"
   },
   "keywords": [ "node", "docker", "dockerfile" ], 
-  "author": "JQUERN200@caledonian.ac.uk", 
+  "author": "jamiequerns@gmail.com", 
  "license": "ISC"
 }
