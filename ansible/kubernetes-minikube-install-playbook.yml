@@ -1,0 +1,47 @@
+- name: Install Kubectl and Minikube then start Minikube
+  hosts: localhost
+  user: ubuntu
+  become: yes
+
+  tasks:
+  
+  - name: 1. Update and install apt-transport-https
+    shell:
+      cmd: sudo apt-get update && sudo apt-get install -y apt-transport-https
+      
+  - name: 2. Download apt key
+    shell:
+      cmd: curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+
+  - name: 3. Echo out sources listings
+    shell:
+      cmd: echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+
+  - name: 4. Update Again with new repo
+    shell:
+      cmd: sudo apt-get update
+
+  - name: 5. Install kubectl
+    shell:
+      cmd: sudo apt-get install -y kubectl 
+
+  - name: 6. Get Minikube Release
+    shell:
+      cmd: curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+
+  - name: 7. Change Minikube Permissions
+    shell:
+      cmd: chmod +x minikube
+
+  - name: 8. Move Minikube installation
+    shell:
+      cmd: sudo mv minikube /usr/local/bin/  
+
+  - name: 9. Start Minikube
+    become_user: ubuntu
+    shell:
+      cmd: minikube start
+      
+  - name: 10. Confirm Configured
+    shell:
+      cmd: kubectl version
