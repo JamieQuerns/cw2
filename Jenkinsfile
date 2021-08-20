@@ -6,7 +6,7 @@ node {
     }
 
     stage('Build image') {
-        app = docker.build("jamiequerns/node_app:${env.BUILD_ID}")
+        app = docker.build("jamiequerns/node_app")
     }
 
 
