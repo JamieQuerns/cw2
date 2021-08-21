@@ -19,7 +19,7 @@ pipeline
 				doGenerateSubmoduleConfigurations: false,
 				extensions: [], 
 				submoduleCfg: [], 
-				userRemoteConfigs: [[url: 'https://github.com/adamdon/DevOpsNodeJs']]])            
+				userRemoteConfigs: [[url: 'https://github.com/JamieQuerns/cw2.git']]])            
 			}
 		}
 		
@@ -60,7 +60,7 @@ pipeline
 		{
 				steps
 				{
-					sh 'ssh ubuntu@52.201.24.236 kubectl rollout restart deployment/nodeapp'
+					sh "ssh -o StrictHostKeyChecking=no ubuntu@2.201.24.236  kubectl set image deployments.apps/nodeapp coursework-2=docker.io/jamiequerns/node_app:latest"
 				}
 		}
 		
