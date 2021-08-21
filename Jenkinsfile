@@ -60,7 +60,7 @@ pipeline
 		{
 				steps
 				{
-				  sh 'ssh -o StrictHostKeyChecking=no ubuntu@ec2-52-201-24-236.compute-1.amazonaws.com kubectl rollout restart deployment/nodeapp'
+				  sh 'ssh -o StrictHostKeyChecking=no ubuntu@ec2-52-201-24-236.compute-1.amazonaws.com kubectl set image deployments.apps/nodeapp node-app-hjwmk=docker.io/jamiequerns/node_app:${env.BUILD_NUMBER}'
 				}
 		}
 		
