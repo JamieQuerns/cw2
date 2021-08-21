@@ -15,7 +15,7 @@ node {
          app.push("${env.BUILD_NUMBER}") //incremental build number from Jenkins
          app.push("latest") //latest tag
         }
-        
+       
         
           stage('Deploy passed build to Kubernetes') {
             steps {
