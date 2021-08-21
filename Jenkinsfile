@@ -26,11 +26,10 @@ pipeline {
     stages {
         stage('Deploy passed build to Kubernetes') {
             steps {
-               //sh 'ssh ubuntu@ec2-18-208-221-213.compute-1.amazonaws.com kubectl rollout restart deployment/dev-ops-node-js' 
-             sh 'ssh -o StrictHostKeyChecking=no ubuntu@ec2-18-208-221-213.compute-1.amazonaws.com kubectl rollout restart deployment/cw2'
+               sh 'ssh ubuntu@ec2-54-196-208-40.compute-1.amazonaws.com kubectl rollout restart deployment/dev-ops-node-js'
             }
           }
-            
+           
     }
 }
    
