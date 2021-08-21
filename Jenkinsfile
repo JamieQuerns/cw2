@@ -60,7 +60,7 @@ pipeline
 		{
 				steps
 				{
-					sh 'ssh ubuntu@ec2-52-201-24-236.compute-1.amazonaws.com kubectl rollout restart deployment/nodeapp'
+					sh 'ssh ubuntu@52.201.24.236 kubectl rollout restart deployment/nodeapp'
 				}
 		}
 		
