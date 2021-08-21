@@ -15,6 +15,14 @@ node {
          app.push("${env.BUILD_NUMBER}") //incremental build number from Jenkins
          app.push("latest") //latest tag
         }
+        
+        
+          stage('Deploy passed build to Kubernetes') {
+            steps {
+               sh 'ssh ubuntu@ec2-52-201-24-236.compute-1.amazonaws.com kubectl rollout restart deployment/nodeapp'
+            }
+        
+        
     }
 
 }
