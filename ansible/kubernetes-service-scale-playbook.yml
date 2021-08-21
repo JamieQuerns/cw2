@@ -8,14 +8,14 @@
   - name: 1. Create Deployment called dev_ops_node_js
     become_user: ubuntu
     shell:
-      cmd: kubectl create deployment dev-ops-node-js --image=jamiequerns/cw2:latest --port=8080
+      cmd: kubectl create deployment nodeapp --image=jamiequerns/cw2:latest --port=8080
 
   - name: 2. Create new service called node-port-service
     become_user: ubuntu
     shell:
-      cmd: kubectl expose deployment/cw2 --type="NodePort" --port 8080 --name node-port-service
+      cmd: kubectl expose deployment/nodeapp --type="NodePort" --port 8080 --name node-port-service
 
   - name: 3. Scale the Application
     become_user: ubuntu
     shell:
-      cmd: kubectl scale deployments/cw2 --replicas=4
+      cmd: kubectl scale deployments/nodeapp --replicas=4
