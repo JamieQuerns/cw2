@@ -22,7 +22,7 @@ node {
                sh 'ssh ubuntu@ec2-52-201-24-236.compute-1.amazonaws.com kubectl rollout restart deployment/nodeapp'
             }
         
-        
+          }
     }
 
 }
