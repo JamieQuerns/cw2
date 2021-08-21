@@ -60,7 +60,7 @@ pipeline
 		{
 				steps
 				{
-					sh "ssh -o StrictHostKeyChecking=no ubuntu@2.201.24.236  kubectl set image deployments.apps/nodeapp coursework-2=docker.io/jamiequerns/node_app:${env.BUILD_NUMBER}"
+					sh "ssh -o StrictHostKeyChecking=no ubuntu@2.201.24.236  kubectl set image deployments.apps/nodeapp node_app=docker.io/jamiequerns/node_app:${env.BUILD_NUMBER}"
 				}
 		}
 		
